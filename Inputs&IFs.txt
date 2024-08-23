@@ -1,0 +1,56 @@
+--SIMULANDO O FINANCIAMENTO DO CARRO
+DECLARE
+    valorcarro   NUMBER := &digiteumvalor;
+    valorparcela NUMBER;
+BEGIN
+    valorparcela := valorcarro / 10;
+    dbms_output.put_line('O valor de cada parcela é: R$' ||(valorparcela * 1.03));
+    valorcarro := ( valorparcela * 1.03 );
+    dbms_output.put_line('O valor de carro financiado é: R$' ||(valorcarro * 10));
+END;
+
+DECLARE
+    valorcarro      NUMBER := &digiteumvalor;
+    --valorEntrada NUMBER := &digite;
+    valordescontado NUMBER := 0.2;
+    valortotal      NUMBER;
+    valorparcela    NUMBER;
+BEGIN
+    valorcarro := valorcarro - valordescontado;
+    valorparcela := round(valorcarro / 6, 2);
+    dbms_output.put_line('O valor parcelas' || valorparcela);
+    valorparcela := round(valorcarro / 12, 2);
+    dbms_output.put_line('O valor parcelas' || valorparcela);
+    valorparcela := round(valorcarro / 18, 2);
+    dbms_output.put_line('O valor parcelas' || valorparcela);
+    valortotal := valorcarro * 0.1;
+    dbms_output.put_line('O valor de carro com 10% é: R$' || valortotal);
+    valortotal := valorcarro * 0.15;
+    dbms_output.put_line('O valor de carro com 15% é: R$' || valortotal);
+    valortotal := valorcarro * 0.2;
+    dbms_output.put_line('O valor de carro com 20% é: R$' || valortotal);
+END;
+
+DECLARE
+    genero VARCHAR2(30) := '&digiteumvalor';
+BEGIN
+    IF upper(genero) = 'M' THEN
+        dbms_output.put_line('MASCULINO');
+    ELSIF upper(genero) = 'F' THEN
+        dbms_output.put_line('FEMININO');
+    ELSE
+        dbms_output.put_line('VALOR NÃO ENCONTRADO');
+    END IF;
+END;
+
+
+--CRIE UM NUMERO PARA VALIDAR SE O NUMERO É PAR OU IMPAR
+DECLARE
+    numero NUMBER := &digiteumnumero;
+BEGIN
+    IF MOD(numero, 2) = 0 THEN
+        dbms_output.put_line('NÚMERO É PAR');
+    ELSE
+        dbms_output.put_line('NÚMERO É IMPAR');
+    END IF;
+END;
