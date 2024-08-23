@@ -1,0 +1,43 @@
+--SWITCH CASE
+SELECT ordernumber,
+    CASE
+        WHEN dealsize = 'Medium' THEN
+            'EMPRESA DE PORTE MÉDIO'
+        WHEN dealsize = 'Large'  THEN
+            'EMPRESA DE PORTE GRANDE'
+        WHEN dealsize = 'Small'  THEN
+            'EMPRESA DE PORTE PEQUENO'
+    END
+    FROM tabela_vendas;
+
+
+
+-- A consulta seleciona a contagem do número de registros agrupados pelo porte da empresa baseado no campo 'dealsize'
+SELECT 
+    -- Conta o número de ocorrências para cada grupo
+    COUNT(1),
+    -- Utiliza a função CASE para categorizar o tamanho da empresa com base no campo 'dealsize'
+    CASE
+        WHEN dealsize = 'Medium' THEN
+            'Empresa de Porte Médio'
+        WHEN dealsize = 'Small' THEN
+            'Empresa de Porte Pequeno'
+        WHEN dealsize = 'Large' THEN
+            'Empresa de Porte Grande'
+    END porteempresa
+FROM
+    -- Especifica a tabela 'tabela_vendas' de onde os dados serão extraídos
+    tabela_vendas
+-- Agrupa os resultados com base na categoria de porte da empresa definida no CASE
+GROUP BY 
+    CASE
+        WHEN dealsize = 'Medium' THEN
+            'Empresa de Porte Médio'
+        WHEN dealsize = 'Small' THEN
+            'Empresa de Porte Pequeno'
+        WHEN dealsize = 'Large' THEN
+            'Empresa de Porte Grande'
+    END
+-- Ordena os resultados com base na contagem, de forma crescente
+ORDER BY
+    1;
