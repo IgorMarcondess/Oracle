@@ -1,0 +1,74 @@
+set serveroutput on
+
+-- Montar um bloco de programação que realize o processamento de uma tabuada
+-- qualquer, por exemplo a tabuada do número 150
+DECLARE
+    v_contador NUMBER(2) := '&InformeUmValor' ;
+    v_contador2 NUMBER(2) := 0;
+BEGIN
+    loop
+        DBMS_OUTPUT.PUT_LINE(v_contador||' x '|| v_contador2||' = '||v_contador * v_contador2);
+        v_contador2 := v_contador2 + 1;
+    exit when v_contador2 > 10;
+    end loop;
+end;
+
+-- USANDO O WHILE 
+DECLARE
+    v_contador NUMBER(2) := '&InformeUmValor' ;
+    v_contador2 NUMBER(2) := 0;
+BEGIN
+    while v_contador2 <= 10
+    loop
+        DBMS_OUTPUT.PUT_LINE(v_contador||' x '|| v_contador2||' = '||v_contador * v_contador2);
+        v_contador2 := v_contador2 + 1;
+    end loop;
+end;
+
+-- USANDO { FOR } 
+DECLARE
+    v_contador NUMBER(2) := '&InformeUmValor' ;
+BEGIN
+    for v_contador2 in 1..10 loop
+        DBMS_OUTPUT.PUT_LINE(v_contador||' x '|| v_contador2||' = '||v_contador * v_contador2);
+    end loop;
+end;
+
+
+-- IMPRIMA OS NUMEROS QUE SÃO PARES E IMPARES
+DECLARE
+    
+BEGIN
+    for v_contador2 in 1..10 loop
+        IF MOD(v_contador2, 2) = 0 THEN
+            dbms_output.put_line(v_contador2||' '||'NÚMERO É PAR');
+        ELSE
+            dbms_output.put_line(v_contador2||' '||'NÚMERO É IMPAR');
+        END IF;
+    end loop;
+END;
+
+
+DECLARE
+    v_totalPar NUMBER(4) := 0;
+    v_totalImpar NUMBER(4) := 0;
+    v_total NUMBER(4) := 0;
+    v_cont NUMBER(2) := 0;
+    v_media NUMBER(4) := 0;
+BEGIN
+    for v_contador2 in 1..11 loop
+        IF MOD(v_contador2, 2) = 0 THEN
+            v_total := v_total + v_contador2;
+            v_cont := v_cont +1;
+            v_totalPar := v_total / v_cont;
+        ELSE
+            v_totalImpar := v_total + v_contador2;
+        END IF;
+    end loop;
+    dbms_output.put_line('Média: '|| v_totalPar);
+    dbms_output.put_line('VALOR TOTAL: '|| v_totalImpar);
+END;
+
+
+
+
