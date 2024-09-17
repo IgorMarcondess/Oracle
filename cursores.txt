@@ -1,0 +1,34 @@
+-- Linha == vetor(Vetor)
+
+CREATE TABLE Funcionario(cd_fun number(4) primary key, nm_fun varchar(35), salario number(8,2), dt_adm date);
+
+BEGIN
+INSERT INTO Funcionario values (1, 'Marcel', 10000, '16-SEP-24');
+INSERT INTO Funcionario values (2, 'Claudia', 16000, '16-SEP-2024');
+INSERT INTO Funcionario values (3, 'Joaquim', 5500, '16-SEP-2024');
+INSERT INTO Funcionario values (4, 'Valéria', 7300, '16-SEP-2024');
+COMMIT;
+END;
+
+SET SERVEROUTPUT ON
+DECLARE
+    CURSOR c_exibe is select nm_fun, salario from Funcionario; -- Criando o cursor com o nome de C_EXIBE e fazendo selects na tabela
+    v_exibe c_exibe%rowtype; -- "V_EXIBE" seria a variavel para onde será armazenado as linhas do C_EXIBE - ROWTYPE USANDO PARA DECLARAR A VARIÁVEL V_EXIBE
+BEGIN
+    open c_exibe; -- ABRINDO O C_EXIBE
+    loop
+        fetch c_exibe into v_exibe; -- ENVIANDO AS INFORMAÇÕES PARA O V_EXIBE
+    EXIT when c_exibe%notfound; -- VERIFICAR SE A PRÓXIMA LINHA TERÁ INFORMAÇÕES, CASO TENHA VOLTARÁ PARA O LOOP, CASO NÃO SAIRÁ DO LOOP
+    dbms_output.put_line('Nome:'||v_exibe.nm_fun||'-Salário:'||v_exibe.salario);
+    end loop;
+    close c_exibe; --FECHANDO O C_EXIBE
+END;
+
+--REESCREVENDO O CÓDIGO ACIMA COM 'FOR'
+DECLARE
+    CURSOR C_exibe IS SELECT nm_fun, salario FROM Funcionario;
+BEGIN
+    FOR v_exibe IN c_exibe LOOP
+    dbms_output.put_line('Nome:'||v_exibe.nm_fun||'-Salário:'||v_exibe.salario);
+END LOOP;
+END;
