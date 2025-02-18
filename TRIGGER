@@ -1,0 +1,60 @@
+DROP TABLE produto CASCADE CONSTRAINTS;
+DROP TABLE valor_produto CASCADE CONSTRAINTS
+DROP TABLE Funcfiap CASCADE CONSTRAINTS
+
+CREATE TABLE Produto(
+    codigo NUMBER(4),
+    valor NUMBER(7,2));
+    
+    
+INSERT INTO produto VALUES (1001,2.55);
+INSERT INTO produto VALUES (1002,3.55);
+INSERT INTO produto VALUES (1003,2.55);
+
+CREATE TABLE valor_produto (
+    codigo NUMBER(4),
+    valor_anterior NUMBER(7,2),
+    valor_novo NUMBER(7,2));
+
+SELECT * FROM produto;
+SELECT * FROM valor_produto;
+
+CREATE OR REPLACE TRIGGER VERIFICA_VALOR --CRIAÇÃO DA TRIGGER
+BEFORE UPDATE -- DEFININDO SE SERÁ BEFORE OU AFTER - E QUAL O TIPO DE ATUALIZAÇÃO (DELETE, UPDATE ETC)
+OF valor --COLUNA QUE SERÁ UTILIZADA
+ON Produto --TABELA QUE SERIA UTILIZADA
+FOR EACH ROW 
+BEGIN
+INSERT INTO valor_produto VALUES (:OLD.codigo, :OLD.valor, :NEW.valor); 
+END;
+
+
+--RODANDO A TRIGGER
+UPDATE Produto SET valor = 0.45 WHERE codigo = 1003
+
+
+
+
+
+
+CREATE TABLE Funcfiap (
+    mat_fun NUMBER(3) PRIMARY KEY,
+    nm_fun VARCHAR(30) NOT NULL,
+    salario NUMBER(10,2));
+    
+INSERT INTO Funcfiap VALUES (1, 'Junior', 2000.00)
+
+SELECT * FROM Funcfiap;
+    
+CREATE OR REPLACE ATUALIZA_VALOR
+BEFORE UPDATE
+OF salario
+ON Funcfiap
+BEGIN IF (salario < 0) then
+UPDATE Funcfiap VALUES (:OLD.mat_fun, :OLD.salario, :NEW.salario)
+END;
+
+
+
+
+    
